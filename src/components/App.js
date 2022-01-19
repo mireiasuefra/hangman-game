@@ -6,6 +6,7 @@ function App() {
   const [errors, setErrors]= useState([]);
   const [lastLetter, setLastLetter] = useState('');
   const [userLetters, setUserLetters]= useState([]);
+  const [dummy, setDummy] = useState(0);
 
  // const letters = [];
  const word = "katacroker"; 
@@ -51,6 +52,14 @@ function App() {
     });
   };
 
+  const renderErrorLetters = () => {
+    return errors
+    // .filter((error) => error.length > );
+    .map((letter, index) => {
+      return (<li className="letter" key={index}>{letter}</li>);
+    });
+  };
+
   return (
     <div className="page">
       <header>
@@ -67,11 +76,7 @@ function App() {
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
             <ul className="letters">
-              <li className="letter">f</li>
-              <li className="letter">q</li>
-              <li className="letter">h</li>
-              <li className="letter">p</li>
-              <li className="letter">x</li>
+              {renderErrorLetters()}
             </ul>
           </div>
           <form className="form">
