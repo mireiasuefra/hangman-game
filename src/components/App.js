@@ -1,64 +1,66 @@
-import { useState } from 'react';
-import '../styles/App.scss';
-import '../styles/main.scss';
+import { useState } from "react";
+import "../styles/App.scss";
+import "../styles/main.scss";
 
 function App() {
-  const [errors, setErrors]= useState([]);
-  const [lastLetter, setLastLetter] = useState('');
-  const [userLetters, setUserLetters]= useState([]);
+  const [errors, setErrors] = useState([]);
+  const [lastLetter, setLastLetter] = useState("");
+  const [userLetters, setUserLetters] = useState([]);
   const [dummy, setDummy] = useState(0);
+  const [smsError, setSmsError] = useState ('');
 
- // const letters = [];
- const word = "katacroker"; 
-//  const wrong = "fqhpx";
+  const word = "katacroker";
 
-// const numberOfErrors = (ev) => {
-//   ev.preventDefault();
-// }
-
-//  const numberOfErrors = (ev) => {
-//   ev.preventDefault();
-//   if (ev.keyCode === 8) {
-//     setErrors(errors);
-//   } else {
-//     setErrors(errors + 1);
-//   }
-// };
-
-  const handleUserInput= (ev) => {
+  const handleUserInput = (ev) => {
     ev.preventDefault();
-    const lastLetterValue = ev.target.value;
-    if (lastLetterValue.match('^[a-zA-ZñÑ]?$')) {
-      setLastLetter(lastLetterValue);
-      if(lastLetterValue !== '') {
-        if (word.includes(lastLetterValue)) {
-        setUserLetters([...userLetters, lastLetterValue]);
-      } else {
-        setErrors([...errors, lastLetterValue]);
+    console.log(ev);
+    const lastLetterValue = ev.key;
+    const sms = 'Has perdido!'
+   
+    if (errors.length < 13) {
+      if (lastLetterValue.match("^[a-zA-ZñÑ]?$")) {
+        setLastLetter(lastLetterValue);
+        if (lastLetterValue !== "") {
+          if (word.includes(lastLetterValue)) {
+            setUserLetters([...userLetters, lastLetterValue]);
+          } else {
+            setErrors([...errors, lastLetterValue]);
+            setDummy(errors.length + 1);
+          }
+        }
+        setLastLetter(lastLetterValue);
       }
+    } else {
+      setSmsError(sms);
     }
-    setLastLetter(lastLetterValue);
-  }
   };
 
   const renderSolutionLetters = () => {
-    const wordLetter = word.split('');
+    const wordLetter = word.split("");
     return wordLetter.map((letter, index) => {
       if (userLetters.includes(letter)) {
-        return (<li className="letter" key={index}>{letter}</li>);
+        return (
+          <li className="letter" key={index}>
+            {letter}
+          </li>
+        );
       } else {
-        return (<li className="letter" key={index}></li>)
+        return <li className="letter" key={index}></li>;
       }
     });
   };
 
   const renderErrorLetters = () => {
-    return errors
-    // .filter((error) => error.length > );
-    .map((letter, index) => {
-      return (<li className="letter" key={index}>{letter}</li>);
+    return errors.map((letter, index) => {
+      return (
+        <li className="letter" key={index}>
+          {letter}
+        </li>
+      );
     });
   };
+
+
 
   return (
     <div className="page">
@@ -69,21 +71,18 @@ function App() {
         <section>
           <div className="solution">
             <h2 className="title">Solución:</h2>
-            <ul className="letters">
-              {renderSolutionLetters()}
-            </ul>
+            <ul className="letters">{renderSolutionLetters()}</ul>
           </div>
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
-            <ul className="letters">
-              {renderErrorLetters()}
-            </ul>
+            <ul className="letters">{renderErrorLetters()}</ul>
           </div>
           <form className="form">
-            <label className="title" htmlFor="last-letter">Escribe una letra:</label>
+            <label className="title" htmlFor="last-letter">
+              Escribe una letra:
+            </label>
             <input
-              // onKeyUp= {numberOfErrors}
-              onChange={handleUserInput}
+              onKeyUp={handleUserInput}
               value={lastLetter}
               autoComplete="off"
               className="form__input"
@@ -92,9 +91,11 @@ function App() {
               name="last-letter"
               id="last-letter"
             />
+             <p>{smsError}</p>
           </form>
+         
         </section>
-        <section className={`dummy error-${errors}`}>
+        <section className={`dummy error-${dummy}`}>
           <span className="error-13 eye"></span>
           <span className="error-12 eye"></span>
           <span className="error-11 line"></span>
