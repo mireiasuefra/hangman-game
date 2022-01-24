@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import "../styles/App.scss";
 import "../styles/main.scss";
 import Dummy from "./Dummy";
+import Options from "./Options";
 import Failed from "./Failed";
+import Footer from "./Footer";
 import Header from "./Header";
+import Instructions from "./Instructions";
 import Solution from "./Solution";
 import UserLetter from "./UserLetter";
 
@@ -44,17 +48,32 @@ function App() {
       <Header />
 
       <main className="main">
-        <section>
-          <Solution userLetters={userLetters} word={word} />
-          <Failed errors={errors} />
-          <UserLetter
-            handleUserInput={handleUserInput}
-            lastLetter={lastLetter}
-            smsError={smsError}
-          />
-        </section>
-        <Dummy dummy={dummy}/>
+        <Switch>
+          <Route path="/instructions">
+            <Instructions />
+          </Route>
+          <Route path="/options">
+            <Options />
+          </Route>
+          <Route exact path="/">
+            <section>
+              <Solution userLetters={userLetters} word={word} />
+              <Failed errors={errors} />
+              <UserLetter
+                handleUserInput={handleUserInput}
+                lastLetter={lastLetter}
+                smsError={smsError}
+              />
+            </section>
+          </Route>
+          <Route>
+            <h2>Error 404</h2>
+          </Route>
+        </Switch>
+        <Dummy dummy={dummy} />
       </main>
+
+      <Footer />
     </div>
   );
 }
