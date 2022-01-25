@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "../styles/App.scss";
 import "../styles/main.scss";
@@ -10,6 +10,7 @@ import Header from "./Header";
 import Instructions from "./Instructions";
 import Solution from "./Solution";
 import UserLetter from "./UserLetter";
+import callToApi from "../services/api";
 
 function App() {
   const [errors, setErrors] = useState([]);
@@ -17,12 +18,24 @@ function App() {
   const [userLetters, setUserLetters] = useState([]);
   const [dummy, setDummy] = useState(0);
   const [smsError, setSmsError] = useState("");
+  const [word, setWord] = useState("");
 
-  const word = "katacroker";
+  useEffect(() => {
+    callToApi().then((response) => {
+      setWord(response);
+    });
+  }, []);
+
+  const handleWord = (value) => {
+    setWord(value);
+    setUserLetters([]);
+    setLastLetter("");
+    setErrors([]);
+  };
 
   const handleUserInput = (ev) => {
     ev.preventDefault();
-    const lastLetterValue = ev.key;
+    const lastLetterValue = ev.key.toLowerCase();
     const sms = "Has perdido!";
 
     if (errors.length < 13) {
@@ -53,7 +66,7 @@ function App() {
             <Instructions />
           </Route>
           <Route path="/options">
-            <Options />
+            <Options handleWord={handleWord} />
           </Route>
           <Route exact path="/">
             <section>
