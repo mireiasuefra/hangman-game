@@ -9,7 +9,7 @@ function Instructions (props) {
   </p>
 
   <p>
-    Suerte!!!!
+    Suerte!!!!  
   </p>
 
 </section>
