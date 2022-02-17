@@ -5,15 +5,13 @@ function Instructions (props) {
     return (
 <section className="instructions">
   <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident nisi
-    voluptatem est nostrum optio perferendis doloremque, delectus at, assumenda suscipit sit
-    odio ipsum error consequatur numquam vero impedit nulla?
+  La dinámica es muy sencilla. Tienes que adivinar la palabra secreta y para ello tienes un máximo de 13 errores. Si no adivinas esta palabrá verás que el muñequito será completado, por lo tanto habrás perdido. Si adivinas la pablabra antes de que el muñequito se complete, habrás ganado. 
   </p>
+
   <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium animi voluptatem quis
-    impedit amet in dicta soluta explicabo, fugit magni mollitia, pariatur eos, repellendus aut
-    esse recusandae minima eum eaque.
+    Suerte!!!!
   </p>
+
 </section>
 
 );
