@@ -18,7 +18,7 @@ function Footer (props) {
       </li>
     </ul>
   </nav>
-  <small className="footer__copy">© Mireia Suero - © Maria Rodriguez </small>
+  <small className="footer__copy"> Mireia Suero y Maria Rodriguez </small>
 </footer>
     );
 }
