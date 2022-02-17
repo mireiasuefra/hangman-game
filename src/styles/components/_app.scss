@@ -13,7 +13,7 @@
   padding: 2rem;
   width: 100%;
   min-height: 100vh;
-  background-image: url('../../images/blackboard.jpg');
+  background-image: url("../../images/blackboard.jpg");
   background-size: cover;
   background-position: center center;
 }
@@ -23,4 +23,33 @@
 .main {
   display: flex;
   justify-content: center;
+}
+
+//RESET-BUTTON
+
+.reset__button {
+  background-color: rgb(182, 177, 177);
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 20px;
+}
+
+.sectionCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+//MESSAGE
+
+.message{
+  margin-top: 20px;
+  font-size: 50px;
 }

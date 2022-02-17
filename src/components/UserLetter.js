@@ -17,7 +17,7 @@ function UserLetter(props) {
               name="last-letter"
               id="last-letter"
             />
-             <p>{props.smsError}</p>
+             <p className="message">{props.message}</p>
           </form>
     );
 }

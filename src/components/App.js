@@ -10,6 +10,7 @@ import Header from "./Header";
 import Instructions from "./Instructions";
 import Solution from "./Solution";
 import UserLetter from "./UserLetter";
+import ButtonReset from "./ButtonReset";
 import callToApi from "../services/api";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   const [lastLetter, setLastLetter] = useState("");
   const [userLetters, setUserLetters] = useState([]);
   const [dummy, setDummy] = useState(0);
-  const [smsError, setSmsError] = useState("");
+  const [message, setMessage] = useState("");
   const [word, setWord] = useState("");
 
   useEffect(() => {
@@ -36,14 +37,27 @@ function App() {
   const handleUserInput = (ev) => {
     ev.preventDefault();
     const lastLetterValue = ev.key.toLowerCase();
-    const sms = "Has perdido!";
+    const message = "Has perdido!";
+    const message2 = "HAS GANADO!!!!!!!!!!";
 
     if (errors.length < 13) {
       if (lastLetterValue.match("^[a-zA-ZñÑ]?$")) {
         setLastLetter(lastLetterValue);
+
         if (lastLetterValue !== "") {
           if (word.includes(lastLetterValue)) {
-            setUserLetters([...userLetters, lastLetterValue]);
+            const letters = [...userLetters, lastLetterValue];
+            setUserLetters(letters);
+
+            let win = true;
+            for (let index = 0; index < word.length; index++) {
+              const letter = word[index];
+              win = win && letters.includes(letter);
+            }
+
+            if (win) {
+              setMessage(message2);
+            }
           } else {
             setErrors([...errors, lastLetterValue]);
             setDummy(errors.length + 1);
@@ -52,7 +66,7 @@ function App() {
         setLastLetter(lastLetterValue);
       }
     } else {
-      setSmsError(sms);
+      setMessage(message);
     }
   };
 
@@ -69,13 +83,20 @@ function App() {
             <Options handleWord={handleWord} />
           </Route>
           <Route exact path="/">
-            <section>
+            <section className="sectionCenter">
               <Solution userLetters={userLetters} word={word} />
               <Failed errors={errors} />
               <UserLetter
                 handleUserInput={handleUserInput}
                 lastLetter={lastLetter}
-                smsError={smsError}
+                message={message}
+              />
+
+              <ButtonReset
+                setUserLetters={setUserLetters}
+                setLastLetter={setLastLetter}
+                setErrors={setErrors}
+                setMessage= {setMessage}
               />
             </section>
           </Route>
